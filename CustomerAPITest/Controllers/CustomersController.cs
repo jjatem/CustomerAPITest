@@ -24,7 +24,7 @@ namespace CustomerAPITest.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]customer value)
+        public bool Post([FromBody]customer value)
         {
             int NewId = 0;
 
@@ -44,11 +44,18 @@ namespace CustomerAPITest.Controllers
                 }
 
                 value.id = NewId;
+                value.date_added = DateTime.Now;
 
                 dbContext.customers.Add(value);
                 dbContext.SaveChanges();
 
+                Ok(true);
+
+                return true;
+
             }
+
+            return false;
         }
 
         // PUT api/values/5

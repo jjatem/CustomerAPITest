@@ -57,9 +57,10 @@ namespace CustomerAPITest.Tests.Controllers
             };
 
             // Act
-            controller.Post(NewCustomerTest);
+            bool Result = controller.Post(NewCustomerTest);
 
             // Assert
+            Assert.IsTrue(Result);
         }
 
         [TestMethod]
