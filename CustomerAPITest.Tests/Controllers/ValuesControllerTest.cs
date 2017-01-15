@@ -22,11 +22,14 @@ namespace CustomerAPITest.Tests.Controllers
             // Act
             IEnumerable<customer> result = controller.Get();
 
+            //Test count
+            int count = result.Count();
+
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("value1", result.ElementAt(0));
-            Assert.AreEqual("value2", result.ElementAt(1));
+            Assert.AreEqual(count, result.Count());
+            Assert.AreEqual("Apple Inc.", result.ElementAt(0).customer_name);
+            Assert.AreEqual("Google, Inc.", result.ElementAt(1).customer_name);
         }
 
         [TestMethod]
@@ -35,11 +38,23 @@ namespace CustomerAPITest.Tests.Controllers
             // Arrange
             CustomersController controller = new CustomersController();
 
+            //Test value
+            customer testValue = new customer()
+            {
+                id = 5,
+                customer_name = "Tesla Motors",
+                city = "Palo Alto",
+                region_state = "CA",
+                date_added = DateTime.Parse("2017-01-15 18:02:58")
+            };
+
             // Act
             customer result = controller.Get(5);
 
+            testValue.date_added = result.date_added;
+
             // Assert
-            Assert.AreEqual("value", result);
+            Assert.AreEqual(testValue.customer_name, result.customer_name);
         }
 
         [TestMethod]
