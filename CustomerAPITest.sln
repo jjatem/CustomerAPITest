@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAPITest", "Customer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAPITest.Tests", "CustomerAPITest.Tests\CustomerAPITest.Tests.csproj", "{50890DA8-4022-4C81-A987-F9721AF8E999}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Files", "Build Files", "{ADE12AA5-15B5-4EE8-9EA0-CF3CB1F973B0}"
+	ProjectSection(SolutionItems) = preProject
+		build.xml = build.xml
+		dotcover.xml = dotcover.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
