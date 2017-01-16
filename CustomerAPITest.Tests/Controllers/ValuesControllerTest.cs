@@ -84,10 +84,20 @@ namespace CustomerAPITest.Tests.Controllers
             // Arrange
             CustomersController controller = new CustomersController();
 
+            customer UpdateValue = new customer()
+            {
+                id = 37,
+                customer_name = "Tesla Motors Updated Name",
+                date_added = DateTime.Now,
+                city = "Palo Alto UPD",
+                region_state = "CA"
+            };
+
             // Act
-            controller.Put(5, "value");
+            controller.Put(37, UpdateValue);
 
             // Assert
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -97,9 +107,10 @@ namespace CustomerAPITest.Tests.Controllers
             CustomersController controller = new CustomersController();
 
             // Act
-            controller.Delete(5);
+            controller.Delete(33);
 
             // Assert
+            Assert.IsTrue(true);
         }
     }
 }

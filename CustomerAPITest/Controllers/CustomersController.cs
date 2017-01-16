@@ -31,18 +31,21 @@ namespace CustomerAPITest.Controllers
             if (value != null &&
                 value is customer)
             {
-                //set max id
-                IEnumerable<customer> customers = dbContext.customers.AsEnumerable();
+                #region deprecated
+                //deprecated set max id
+                //IEnumerable<customer> customers = dbContext.customers.AsEnumerable();
 
-                if (customers?.Count() > 0)
-                {
-                    NewId = customers.Max(item => item.id) + 1;                             
-                }
-                else
-                {
-                    NewId++;
-                }
+                //if (customers?.Count() > 0)
+                //{
+                //    NewId = customers.Max(item => item.id) + 1;                             
+                //}
+                //else
+                //{
+                //    NewId++;
+                //}
+                #endregion
 
+                //set id as zero - mysql autoincrement will set the right pk value
                 value.id = NewId;
                 value.date_added = DateTime.Now;
 
@@ -59,13 +62,53 @@ namespace CustomerAPITest.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put(int id, [FromBody]customer value)
         {
+            if (value == null)
+            {
+                BadRequest("Invalid Request");
+                return false;
+            }
+
+            /*
+             * Update customer info
+             */
+            customer FoundMatch = this.Get(id);
+
+            if (FoundMatch != null && FoundMatch.id == id)
+            {
+                dbContext.customers.Remove(FoundMatch);
+                dbContext.customers.Add(value);
+                dbContext.SaveChanges();
+                Ok(true);
+                return true;
+            }
+            else
+            {
+                NotFound();
+                return false;
+            }
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            customer FoundMatch = this.Get(id);
+
+            if (FoundMatch != null && FoundMatch.id == id)
+            {
+                dbContext.customers.Remove(FoundMatch);
+                dbContext.SaveChanges();
+
+                Ok(true);
+
+                return true;
+            }
+            else
+            {
+                NotFound();
+                return false;
+            }
         }
     }
 }
