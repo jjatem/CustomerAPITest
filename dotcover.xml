@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnalyseParams>
   <TargetExecutable>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe</TargetExecutable>
-  <TargetArguments>/testcontainer:CustomerAPITest.Tests\bin\CustomerAPITest.Tests.dll</TargetArguments>
+  <TargetArguments>/testcontainer:CustomerAPITest.Tests\bin\Release\CustomerAPITest.Tests.dll</TargetArguments>
   <TargetWorkingDir>.</TargetWorkingDir>
   <Output>output/coverage.html</Output>
   <ReportType>HTML</ReportType>
