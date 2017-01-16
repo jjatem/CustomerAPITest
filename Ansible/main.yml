@@ -1,4 +1,4 @@
----
+﻿---
 # tasks file for winiis
  - name: Check windows 2012 server pings on the network
    action: win_ping
@@ -41,7 +41,7 @@
      protocol: https
      ip: '*'
      port: 443
-     certificate_hash: "FBDAFD0E662C3FA9BE61635E029252117B52AFB1"
+     certificate_hash: "‎FBDAFD0E662C3FA9BE61635E029252117B52AFB1"
      state: present
 
  - name: Config IIS Virtual Application CustomerAPITest JSON
