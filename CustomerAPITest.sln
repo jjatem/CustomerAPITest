@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Files", "Build Files"
 		dotcover.xml = dotcover.xml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ansible", "Ansible", "{DF03BC3C-E043-4126-A3B4-364F10A0EE2C}"
+	ProjectSection(SolutionItems) = preProject
+		Ansible\main.yml = Ansible\main.yml
+		Ansible\setup-customer-api-iis.yml = Ansible\setup-customer-api-iis.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

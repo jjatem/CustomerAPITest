@@ -1,0 +1,6 @@
+---
+ - hosts: windows
+   roles:
+    - { role: customerapi-dotnet, remote_install_package: "D:\\Deployment\\CustomerAPITest.zip", remote_install_path : "D:\\WebApps\\CustomerAPITest", setup_drive_destination : "D:\\WebApps\\CustomerAPITest", main_app_pool : "CustomerAPITest"}
+    #- mbs-monitor
+     

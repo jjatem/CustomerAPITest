@@ -1,0 +1,59 @@
+---
+# tasks file for winiis
+ - name: Check windows 2012 server pings on the network
+   action: win_ping
+
+ - name: Install Windows 2012 Webserver role
+   win_feature:
+     name: "Web-Server"
+     state: present
+     restart: yes
+
+ - name: Copy IIS CustomerAPITest ASP Application Files Zipped - Deployment Package to Web-Server
+   win_copy: src=files/CustomerAPITest.zip dest={{ remote_install_package }}
+
+ - name: Unzip Deployment Package WebApps.zip file
+   win_unzip:
+     src: "{{ remote_install_package }}"
+     dest: "{{ setup_drive_destination }}"
+     creates: "{{ remote_install_path }}"
+
+ - name: Configuring CustomerAPITest JSON App Pool with .NET 4.0 support
+   win_iis_webapppool:
+     name: '{{ main_app_pool }}'
+     state: started
+     attributes: managedRuntimeVersion:v4.0
+     register: "{{ main_app_pool }}"
+ 
+ - name: Configuring IIS Default Web Site Main HTTPS Web site on port 80 listening to any unassigned IPs
+   win_iis_website:
+     name: "Default Web Site"
+     state: started
+     port: 80
+     ssl: 'yes'
+     application_pool: "{{ main_app_pool }}"
+     physical_path: 'C:\Program Files\Windows Server\Bin\webapps\site'
+     register: "Default Web Site"
+
+ - name: Add Default Web Site Website http-https bindings
+   win_iis_webbinding:
+     name: "Default Web Site"
+     protocol: https
+     ip: '*'
+     port: 443
+     certificate_hash: "FBDAFD0E662C3FA9BE61635E029252117B52AFB1"
+     state: present
+
+ - name: Config IIS Virtual Application CustomerAPITest JSON
+   win_iis_webapplication:
+     name: "{{ main_app_pool }}"
+     site: "Default Web Site"
+     physical_path: '{{ remote_install_path }}'
+     application_pool: "{{ main_app_pool }}"
+     state: present
+
+ - name: Change owner of WebApps CustomerAPITest Application Folder
+   win_owner:
+     recurse: 'yes'
+     path: "{{ remote_install_path }}"
+     user: USERS
